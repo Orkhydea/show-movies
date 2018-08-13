@@ -1,24 +1,53 @@
-//$('.collapse').collapse()
+var randomMovieArray = ['Star Wars', 'Game of Thrones', 'Lord of the rings', 'Harry Potter', 'Guardians of the Galaxy Vol. 2'];
+var randomNumber = Math.floor((Math.random() * randomMovieArray.length - 1) + 1);
+var randomMovie = randomMovieArray[randomNumber];
+//console.log(randomMovie);
 
-$(document).ready(function () {
-    //   $("#buscar-productos").click(function (event) {
-    console.log("Entro");
-    // var hogar = $("#poke-text").val();
-    ajaxPeliculas();
-    //   });
-});
+function apiCall() {
+    console.log(randomMovie);
 
-// var showHogar = function (hogares) {
+    $.getJSON('http://www.omdbapi.com/?apikey=90359439&t=' + encodeURI(randomMovie)).then(function (response) {
+
+        console.log(response);
+        var name = response.Title;
+        var imagen = response.Poster;
+        $("#peliculas").append(armarTemplate(name, imagen))
+    
+    })
+}
+
+var armarTemplate = function (name, imagen) {
+    var t = "<div class='card' style='width: 10rem;'><img class='card-img-top'  src='" + imagen + "alt='Card image cap'><div class='card-body'><h5 class='card-title'>" + name + "</h5>";
+    return t;
+    
+}
+var i = 0;
+do {
+ apiCall()
+ i++;
+} while (i>10);
+
+// // //$('.collapse').collapse()
+
+// $(document).ready(function () {
+//        $("#search-movie").click(function (event) {
+//     console.log("Entro");
+//      var movie = $("#text-movie").val();
+//     ajaxPeliculas();
+//      });
+// });
+
+// var showMovies = function (movies) {
 //     var name = "";
 //     var imagen = "";
-//     var precio = "";
+//     //var precio = "";
 
 
-//     hogares.results.forEach(function (hogar) {
-//         console.log(hogar);
-//         name = hogar.title;
-//         imagen = hogar.thumbnail;
-//         precio = hogar.price;
+//     omdb.search_movie.forEach(function (movie) {
+//         console.log(movie);
+//         name = search_movie.title;
+//         // imagen = hogar.thumbnail;
+//         // precio = hogar.price;
 //         $("#elementos").append(armarTemplate(name, imagen, precio))
 //     })
 // }
@@ -28,21 +57,21 @@ $(document).ready(function () {
 //     return t;
 // }
 
-var ajaxPeliculas = function () {
-    $.ajax({
-        url: `http://www.omdbapi.com/search?apikey=90359439&`,
-        type: 'GET',
-        datatype: 'json',
-         data:{
-        // // // : gif,
-        api_key : '90359439'
-         } 
-    })
-        .done(function (response) {
-            console.log(response);
-            showPeliculas(response);
-        })
-        .fail(function (xhr) {
-            console.log("error");
-        });
-}
+// var ajaxPeliculas = function () {
+//     $.ajax({
+//         url: `http://www.omdbapi.com/?apikey=90359439&s=${name}`,
+//         type: 'GET',
+//         datatype: 'json',
+//         //  data:{
+//         // // // // : gif,
+//         // api_key : '90359439'
+//         //  } 
+//     })
+//         .done(function (response) {
+//             console.log(response);
+//             showMovies(response);
+//         })
+//         .fail(function (xhr) {
+//             console.log("error");
+//         });
+// }
