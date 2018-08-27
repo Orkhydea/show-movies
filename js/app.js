@@ -1,4 +1,4 @@
-var randomMovieArray = ['Star Wars', 'Game of Thrones', 'Lord of the rings', 'Harry Potter', 'Guardians of the Galaxy Vol. 2'];
+var randomMovieArray = ['Pretty woman', 'Deadpool', 'Men in black','Pirates of the caribbean', 'Saw', 'Star Wars', 'Frozen', 'Batman', 'Cars', 'Titanic', 'Rambo', 'Fast and furious', 'Game of Thrones', 'Lord of the rings', 'Harry Potter', 'Guardians of the Galaxy', 'grease'];
 var randomNumber = Math.floor((Math.random() * randomMovieArray.length - 1) + 1);
 var randomMovie = randomMovieArray[randomNumber];
 //console.log(randomMovie);
@@ -6,26 +6,27 @@ var randomMovie = randomMovieArray[randomNumber];
 function apiCall() {
     console.log(randomMovie);
 
-    $.getJSON('http://www.omdbapi.com/?apikey=90359439&t=' + encodeURI(randomMovie)).then(function (response) {
-
-        console.log(response);
-        var name = response.Title;
-        var imagen = response.Poster;
-        $("#peliculas").append(armarTemplate(name, imagen))
-    
+       $.getJSON('https://www.omdbapi.com/?apikey=90359439&s=' + encodeURI(randomMovie))
+        .then(function (response) {//callback
+        //console.log(response.Search);
+        response.Search.forEach(function (movie) {  //response representa la callback despues del .then
+            var name = movie.Title;
+            var imagen = movie.Poster;
+            if(movie.Poster == "N/A"){
+                imagen='https://i.gifer.com/COTV.gif'
+            }
+            $("#peliculas").append(armarTemplate(name, imagen))
+           
+        })
+       
     })
 }
 
 var armarTemplate = function (name, imagen) {
-    var t = "<div class='card' style='width: 10rem;'><img class='card-img-top'  src='" + imagen + "alt='Card image cap'><div class='card-body'><h5 class='card-title'>" + name + "</h5>";
-    return t;
-    
+    var t = "<div class='card text-white bg-dark'><img class='card-img-top' src='" + imagen + "' alt='Card image cap'><div class='card-body'><h5 class='card-title'>" + name + "</h5>";
+    return t;   
 }
-var i = 0;
-do {
  apiCall()
- i++;
-} while (i>10);
 
 // // //$('.collapse').collapse()
 
