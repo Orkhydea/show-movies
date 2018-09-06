@@ -1,9 +1,10 @@
-var randomMovieArray = ['Pretty woman', 'Deadpool', 'Men in black','Pirates of the caribbean', 'Saw', 'Star Wars', 'Frozen', 'Batman', 'Cars', 'Titanic', 'Rambo', 'Fast and furious', 'Game of Thrones', 'Lord of the rings', 'Harry Potter', 'Guardians of the Galaxy', 'grease'];
+
+
+function apiCall() {
+    var randomMovieArray = ['Pretty woman', 'Aquaman', 'Deadpool', 'Men in black','Pirates of the caribbean', 'Saw', 'Star Wars', 'Frozen', 'Batman', 'Cars', 'Titanic', 'Rambo', 'Fast and furious', 'Game of Thrones', 'Lord of the rings', 'Harry Potter', 'Guardians of the Galaxy', 'grease'];
 var randomNumber = Math.floor((Math.random() * randomMovieArray.length - 1) + 1);
 var randomMovie = randomMovieArray[randomNumber];
 //console.log(randomMovie);
-
-function apiCall() {
     console.log(randomMovie);
 
        $.getJSON('https://www.omdbapi.com/?apikey=90359439&s=' + encodeURI(randomMovie))
@@ -12,7 +13,7 @@ function apiCall() {
         response.Search.forEach(function (movie) {  //response representa la callback despues del .then
             var name = movie.Title;
             var imagen = movie.Poster;
-            if(movie.Poster == "N/A"){
+            if(imagen === "N/A"){
                 imagen='https://i.gifer.com/COTV.gif'
             }
             $("#peliculas").append(armarTemplate(name, imagen))
@@ -23,7 +24,7 @@ function apiCall() {
 }
 
 var armarTemplate = function (name, imagen) {
-    var t = "<div class='card text-white bg-dark'><img class='card-img-top' src='" + imagen + "' alt='Card image cap'><div class='card-body'><h5 class='card-title'>" + name + "</h5>";
+    var t = "<div class='card text-white bg-dark'><img class='card-img-top' src='" + imagen + " ' alt='Card image cap'><div class='card-body'><h5 class='card-title'>" + name + "</h5>";
     return t;   
 }
  apiCall()

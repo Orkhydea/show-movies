@@ -8,3 +8,4 @@ Debe ser responsive.
 La aplicación debe soportar la última versión de Firefox y Chrome, y las experiencias de ambos deben ser consistentes.
 Usar las herramientas que necesite, incluyendo los frameworks de JS como CSS que consideres. 
 
+![show movies](./assets/images/Show-movies.png)
